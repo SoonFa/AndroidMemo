@@ -51,10 +51,8 @@ public class RemindList extends Fragment {
         tvTomorrow.setText(dateFormatter.format(new Date(System.currentTimeMillis()+86400000)));//获取明天的日期
         tvAfterTomorrow.setText(dateFormatter.format(new Date(System.currentTimeMillis()+86400000*2)));//获取后天的日期
         tvAfterAll.setText(dateFormatter.format(new Date(System.currentTimeMillis()+86400000*3))+"之后");
-
         dbOpenHelper = new MyDBOpenHelper(getActivity().getApplicationContext());
         dbRead= dbOpenHelper.getReadableDatabase();  //获得一个只读的SQLiteDatabase对象
-
         readToDoList(new Date(System.currentTimeMillis()),listToDoToday,0);
         readToDoList(new Date(System.currentTimeMillis()+86400000),listToDoTomorrow,0);
         readToDoList(new Date(System.currentTimeMillis()+86400000*2),listToDoAfterTomorrow,0);

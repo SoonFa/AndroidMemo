@@ -37,7 +37,6 @@ public class TodayList extends Fragment {
         tvToday.setText(dateFormatter.format(new Date(System.currentTimeMillis())));
         dbOpenHelper = new MyDBOpenHelper(getActivity().getApplicationContext());
         dbRead= dbOpenHelper.getReadableDatabase();
-        //获得一个只读的SQLiteDatabase对象
         readToDoList();
         return rootView;
     }
@@ -60,9 +59,6 @@ public class TodayList extends Fragment {
                 taskList.add(temp);
             }
         }
-        //方法一：使用自定义的Adapter：
-        //MyListViewAdapter listViewAdapter = new MyListViewAdapter(getActivity(), taskList);
-
         final SimpleAdapter listViewAdapter = new SimpleAdapter(getActivity(), taskList,R.layout.today_list_item,
                 new String[] {"remindDate", "remindTitle","remindText","haveDo"},
                 new int[]{R.id.remind_listitem_remindDate,R.id.remind_listitem_taskTitle,R.id.remind_listitem_taskText,R.id.remind_listitem_haveDo} );
@@ -70,7 +66,6 @@ public class TodayList extends Fragment {
         ListTask.setOnItemClickListener(new AdapterView.OnItemClickListener() {//单击修改列表项
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                //获取点击项：
                 HashMap<String, String> temp = (HashMap<String, String>) listViewAdapter.getItem(position);
                 final String taskID = temp.get("_id");
                 Log.d("待办小助手--我的提示", taskID);

@@ -97,7 +97,6 @@ public class UndoList extends Fragment {
                 }
             }
         }
-
         final SimpleAdapter listViewAdapter = new SimpleAdapter(getActivity(), taskList,R.layout.remind_list_item,
                 new String[] {"remindDate", "remindTitle","remindText","taskHaveDo"},
                 new int[]{R.id.remind_listitem_remindDate,R.id.remind_listitem_taskTitle,R.id.remind_listitem_taskText,R.id.remind_listitem_haveDo} );

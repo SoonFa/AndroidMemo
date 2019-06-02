@@ -36,20 +36,18 @@ public class Add extends Fragment {
         View rootView = inflater.inflate(R.layout.add, container, false);
         btnAdd = (Button) rootView.findViewById(R.id.btnAdd);
         btnCancel = (Button) rootView.findViewById(R.id.btnAddCancel);
-        // taskID = (TextView) rootView.findViewById(R.id.tvTaskID);
         remindTitleEdit = (EditText) rootView.findViewById(R.id.etAddTask);
         dateEdit = (EditText) rootView.findViewById(R.id.etAddDate);
         timeEdit = (EditText) rootView.findViewById(R.id.etAddTime);
         remindTextEdit = (EditText) rootView.findViewById(R.id.etAddRemark);
 
         dbOpenHelper=new MyDBOpenHelper(getActivity().getApplicationContext());
-        //taskID.setText("ID: "+"0088");
 
         dateFormatter = new SimpleDateFormat ("yyyy年MM月dd日");
         timeFormatter = new SimpleDateFormat ("HH:mm:ss");
         createDate=Calendar.getInstance();
         createDate.setTimeInMillis(System.currentTimeMillis());
-        remindDate=Calendar.getInstance();//新版本推荐使用Calendar，不用Date
+        remindDate=Calendar.getInstance();
         remindDate.setTimeInMillis(remindDate.getTimeInMillis()+1000*60);
         dateEdit.setText(dateFormatter.format(new Date(remindDate.getTimeInMillis())));
         timeEdit.setText(timeFormatter.format(new Date(remindDate.getTimeInMillis())));
@@ -59,29 +57,16 @@ public class Add extends Fragment {
             public void onClick(View view) {
                 new DatePickerDialog(getActivity(),new DatePickerDialog.OnDateSetListener() {
                     @Override
-                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                        remindDate.set(year,month,day);
-                        dateEdit.setText(dateFormatter.format(new Date(remindDate.getTimeInMillis())));
-                    }
-                },remindDate.get(Calendar.YEAR),remindDate.get(Calendar.MONTH),remindDate.get(Calendar.DAY_OF_MONTH))
+                    public void onDateSet(DatePicker datePicker, int year, int month, int day) { remindDate.set(year,month,day);dateEdit.setText(dateFormatter.format(new Date(remindDate.getTimeInMillis()))); }},remindDate.get(Calendar.YEAR),remindDate.get(Calendar.MONTH),remindDate.get(Calendar.DAY_OF_MONTH))
                         .show();
             }
         });
 
         timeEdit.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                new TimePickerDialog(getActivity(),new TimePickerDialog.OnTimeSetListener() {
+            public void onClick(View view) { new TimePickerDialog(getActivity(),new TimePickerDialog.OnTimeSetListener() {
                     @Override
-                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
-                        remindDate.set(remindDate.get(Calendar.YEAR),remindDate.get(Calendar.MONTH),remindDate.get(Calendar.DAY_OF_MONTH),hourOfDay,minute);
-                        timeEdit.setText(timeFormatter.format(new Date(remindDate.getTimeInMillis())));
-                        Log.e("待办事项-设置提醒时间",remindDate.getTime().toString());
-                    }
-                },remindDate.get(Calendar.HOUR_OF_DAY),remindDate.get(Calendar.MINUTE),true)
-                        .show();
-            }
-        });
+                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) { remindDate.set(remindDate.get(Calendar.YEAR),remindDate.get(Calendar.MONTH),remindDate.get(Calendar.DAY_OF_MONTH),hourOfDay,minute);timeEdit.setText(timeFormatter.format(new Date(remindDate.getTimeInMillis())));Log.e("待办事项-设置提醒时间",remindDate.getTime().toString()); }},remindDate.get(Calendar.HOUR_OF_DAY),remindDate.get(Calendar.MINUTE),true).show(); }});
 
         btnCancel.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -93,7 +78,6 @@ public class Add extends Fragment {
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // 从编辑框中获得相应的属性值
                 SimpleDateFormat longDateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 SQLiteDatabase dbWriter=dbOpenHelper.getWritableDatabase();
                 ContentValues cv = new ContentValues();
@@ -102,22 +86,16 @@ public class Add extends Fragment {
                 cv.put("modifyDate",longDateFormatter.format(new Date(System.currentTimeMillis())));
                 cv.put("remindDate",longDateFormatter.format(remindDate.getTimeInMillis()));
                 cv.put("remindText",remindTextEdit.getText().toString());
-
                 dbWriter.insert("tb_ToDoItem",null, cv);
                 dbWriter.close();
-//                StartNotification.startTimeService(remindDate.getTimeInMillis()-System.currentTimeMillis(),
-//                        remindTitleEdit.getText().toString(),remindTextEdit.getText().toString(),getActivity().getApplicationContext());
                 startTimeService(remindDate.getTimeInMillis()-System.currentTimeMillis(),
                         remindTitleEdit.getText().toString(),remindTextEdit.getText().toString());
-
                 getFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, new RemindList())
                         .commit();
 
             }
         });
-
-
         return rootView;
     }
 
@@ -128,7 +106,6 @@ public class Add extends Fragment {
         Cursor result=dbRead.query("tb_Remind",new String[]{"notificationID"},null,null,null,null,null,null);
         if (result.moveToFirst()){
             notificationID=result.getInt(0);
-            //Log.e("待办小助手-AddNewFragment的提示","-读取的notificationID--"+notificationID);
             SQLiteDatabase dbWriter=(new MyDBOpenHelper(getActivity().getApplicationContext())).getWritableDatabase();
             ContentValues cv = new ContentValues();
             cv.put("notificationID", notificationID+1);
@@ -136,7 +113,6 @@ public class Add extends Fragment {
             dbWriter.close();
         }else {
             notificationID=0;
-            Log.e("待办小助手-AddNewFragment的提示", "错误：无法获取数据库中的notificationID值！！");
         }
         dbRead.close();
         intent.putExtra("time", time);

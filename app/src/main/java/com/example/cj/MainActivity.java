@@ -159,13 +159,10 @@ public class MainActivity extends AppCompatActivity {
                 "values ('"+yesterday+"','画画','水彩','"+aftertomorrow1+"');";
         db.execSQL(sql_insert);
         StartNotification.startTimeService(new Long(1000*60*60),"画画","水彩",this);
-
         sql_insert="insert into tb_ToDoItem(createDate,remindTitle,remindText,remindDate) " +
                 "values ('"+yesterday+"','实验报告','嵌入式计算器','"+aftertomorrow2+"');";
         db.execSQL(sql_insert);
         StartNotification.startTimeService(new Long(1000*60*60),"实验报告","计算器",this);
-
-
     }
 
 }

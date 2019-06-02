@@ -13,13 +13,12 @@ class MyDBOpenHelper extends SQLiteOpenHelper {
 
 
     public MyDBOpenHelper(Context context) {
-        //重写构造方法，创建一个名为DB_ToDoList的数据库
+        //创建一个名为DB_ToDoList的数据库
         super(context, "todoDatabase.db", null, 2);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        //重写onCreate()方法，创建数据表，其中 _id字段作为主键，自动增加
         String sql = "create table tb_ToDoItem(_id integer primary key autoincrement, " +
                 "remindTitle text not null, " + //待办事项的标题文本
                 "createDate text DEFAULT(' '), " +  //待办事项的创建日期和时间

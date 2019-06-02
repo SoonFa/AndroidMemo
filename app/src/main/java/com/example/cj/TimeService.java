@@ -14,7 +14,6 @@ import android.util.Log;
 public class TimeService extends Service {
 
     private Timer timer;
-
     @Override
     public IBinder onBind(Intent intent) {
         return null;

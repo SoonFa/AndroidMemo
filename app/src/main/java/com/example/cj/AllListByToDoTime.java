@@ -61,7 +61,6 @@ public class AllListByToDoTime extends Fragment {
             }
         }
 
-
         final SimpleAdapter listViewAdapter = new SimpleAdapter(getActivity(), taskList,R.layout.all_list_item,
                 new String[] {"remindTitle","createDate", "remindDate","haveDo","remindText"},
                 new int[]{R.id.listitem_task,R.id.listitem_createDate,R.id.listitem_remindDate,R.id.listitem_haveDo,R.id.listitem_remark} );
@@ -100,7 +99,6 @@ public class AllListByToDoTime extends Fragment {
                         })
                         .setNeutralButton("修改该项内容", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface arg0, int arg1) {
-                                //SQLiteDatabase dbWriter = dbOpenHelper.getWritableDatabase();
                                 final Bundle bundle = new Bundle();
                                 bundle.putString("taskID", taskID);
                                 Update update = new Update();
@@ -122,7 +120,6 @@ public class AllListByToDoTime extends Fragment {
 
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                //获取点击项：
                 HashMap<String,String> temp = (HashMap<String,String>)listViewAdapter.getItem(position);
                 final String taskID=temp.get("_id");
                 String remindTitle=temp.get("remindTitle");
@@ -154,7 +151,6 @@ public class AllListByToDoTime extends Fragment {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 final View itemView=view;
                 final int itemPosition=position;
-                //获取点击项：
                 HashMap<String,String> temp = (HashMap<String,String>)listViewAdapter.getItem(position);
                 final String taskID=temp.get("_id");
                 new AlertDialog.Builder(getActivity())
@@ -171,7 +167,6 @@ public class AllListByToDoTime extends Fragment {
                         .setNegativeButton("取消", new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface arg0, int arg1) {
-                                // 关闭对话框
                             }
                         })
                         .create()

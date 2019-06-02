@@ -71,15 +71,10 @@ public class DoneList extends Fragment {
             while(result.moveToNext()){
                 if (result.getString (3).substring(0,10).compareTo(dayFormatter.format(toDoDay))==0){
                     HashMap<String,String> temp = new HashMap<String,String>();
-                    Log.d("待办小助手--remindDay", String.valueOf(result.getInt(0)));
                     temp.put("_id", String.valueOf(result.getInt(0)));
-                    Log.d("待办小助手--remindDay", String.valueOf(result.getInt(1)));
                     temp.put("remindTitle", result.getString (1));
-                    Log.d("待办小助手--remindDay", String.valueOf(result.getInt(3)));
                     temp.put("remindDate", "提醒时间："+result.getString (3).substring(11));
-                    Log.d("待办小助手--remindDay", String.valueOf(result.getInt(2)));
                     temp.put("remindText", "备注：" + result.getString(2));
-                    Log.d("待办小助手--remindDay", String.valueOf(result.getInt(4)));
                     temp.put("taskHaveDo", result.getInt(4)==0?"×未处理":"√已处理");
                     taskList.add(temp);
                 }
@@ -91,8 +86,6 @@ public class DoneList extends Fragment {
                 try {
                     remindDay = dateFormatter.parse(result.getString(3));
                     today=dayFormatter.parse(dayFormatter.format(toDoDay));
-                    Log.d("待办小助手--remindDay", remindDay.toString());
-                    Log.d("待办小助手--today", today.toString());
                     if(((remindDay.getTime() - today.getTime())/(24*3600*1000)) >=3) { //三天之后
                         HashMap<String,String> temp = new HashMap<String,String>();
                         temp.put("_id", String.valueOf(result.getInt(0)));
@@ -121,8 +114,7 @@ public class DoneList extends Fragment {
                 HashMap<String, String> temp = (HashMap<String, String>) listViewAdapter.getItem(position);
                 final String taskID = temp.get("_id");
                 Log.d("待办小助手--我的提示", taskID);
-                Cursor result=dbRead.query("tb_ToDoItem",null,
-                        "_id=? ",new String[]{taskID},null,null,null,null);
+                Cursor result=dbRead.query("tb_ToDoItem",null, "_id=? ",new String[]{taskID},null,null,null,null);
                 result.moveToFirst();
                 HashMap<String,String> findByID = new HashMap<String,String>();
                 findByID.put("id", "ID："+String.valueOf(result.getInt(0))+"\n");
@@ -211,11 +203,9 @@ public class DoneList extends Fragment {
                     totalHeight += listItem.getMeasuredHeight();
                 }
             }
-
             ViewGroup.LayoutParams params = listview.getLayoutParams();
             params.height = totalHeight + (listview.getDividerHeight() * (listview.getCount() - 1));
             listview.setLayoutParams(params);
         }
     }
-
 }

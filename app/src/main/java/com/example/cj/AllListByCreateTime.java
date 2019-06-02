@@ -56,12 +56,10 @@ public class AllListByCreateTime extends Fragment {
             }
         }
 
-
         final SimpleAdapter listViewAdapter = new SimpleAdapter(getActivity(), taskList,R.layout.all_list_item,
                 new String[] {"remindTitle","createDate", "remindDate","haveDo","remindText"},
                 new int[]{R.id.listitem_task,R.id.listitem_createDate,R.id.listitem_remindDate,R.id.listitem_haveDo,R.id.listitem_remark} );
         ListTask.setAdapter(listViewAdapter);//将查询到的结果显示到ListView控件中
-
         ListTask.setOnItemClickListener(new AdapterView.OnItemClickListener() {//单击修改列表项
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
@@ -95,7 +93,6 @@ public class AllListByCreateTime extends Fragment {
                         })
                         .setNeutralButton("修改该项内容", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface arg0, int arg1) {
-                                //SQLiteDatabase dbWriter = dbOpenHelper.getWritableDatabase();
                                 final Bundle bundle = new Bundle();
                                 bundle.putString("taskID", taskID);
                                 Update update = new Update();
@@ -117,7 +114,6 @@ public class AllListByCreateTime extends Fragment {
 
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                //获取点击项：
                 HashMap<String,String> temp = (HashMap<String,String>)listViewAdapter.getItem(position);
                 final String taskID=temp.get("_id");
                 String remindTitle=temp.get("remindTitle");
@@ -142,14 +138,12 @@ public class AllListByCreateTime extends Fragment {
             }
         });
 
-
         ListTask.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){//长按删除列表项
 
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 final View itemView=view;
                 final int itemPosition=position;
-                //获取点击项：
                 HashMap<String,String> temp = (HashMap<String,String>)listViewAdapter.getItem(position);
                 final String taskID=temp.get("_id");
                 new AlertDialog.Builder(getActivity())
@@ -166,7 +160,6 @@ public class AllListByCreateTime extends Fragment {
                         .setNegativeButton("取消", new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface arg0, int arg1) {
-                                // 关闭对话框
                             }
                         })
                         .create()

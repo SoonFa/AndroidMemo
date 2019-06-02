@@ -32,8 +32,7 @@ public class Update extends Fragment {
     private EditText taskEdit, dateEdit, timeEdit, remarkEdit;
     private TextView taskID;
     private Date remindDate=new Date(System.currentTimeMillis());
-    private Calendar newRemindDate=Calendar.getInstance();   //新版本推荐使用Calendar，不用Date
-
+    private Calendar newRemindDate=Calendar.getInstance();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

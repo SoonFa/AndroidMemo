@@ -33,6 +33,4 @@ public class StartNotification {
         intent.putExtra("notificationID",notificationID);
         context.startService(intent);
     }
-
-
 }
