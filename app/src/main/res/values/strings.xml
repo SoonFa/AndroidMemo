@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">CJ备忘录</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="notification_title">待办：</string>
+    <string name="notification_ticker">待办事项新提醒</string>
+</resources>

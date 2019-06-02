@@ -1,0 +1,18 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#F19483</item>
+        <item name="colorPrimaryDark">#D75455</item>
+        <item name="colorAccent">#BF6766</item>
+    </style>
+
+    <style name="divider_horizontal"> <!-- 水平分割线 -->
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.05dp</item>
+        <item name="android:background">#EB7A77</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+</resources>
